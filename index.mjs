@@ -66,7 +66,11 @@ class LoginManager {
 }
 
 const browser = await puppeteer.launch({
-  headless: false,
+  // headless: false,
+  args: [
+    '--no-sandbox',
+    '--disable-features=HttpsFirstBalancedModeAutoEnable',
+  ],
 });
 
 // 使用示例
