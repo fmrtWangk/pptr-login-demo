@@ -70,6 +70,17 @@ const browser = await puppeteer.launch({
   args: [
     '--no-sandbox',
     '--disable-features=HttpsFirstBalancedModeAutoEnable',
+    '--disable-web-security',
+    // '--disable-setuid-sandbox',
+    // '--disable-dev-shm-usage',
+    // '--disable-accelerated-2d-canvas',
+    // '--no-first-run',
+    // '--no-zygote',
+    // '--disable-gpu',
+    // '--disable-features=VizDisplayCompositor',
+    // '--disable-background-timer-throttling',
+    // '--disable-backgrounding-occluded-windows',
+    // '--disable-renderer-backgrounding',
   ],
 });
 
