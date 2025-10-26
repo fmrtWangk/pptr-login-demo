@@ -142,5 +142,8 @@ vite.config.ts.timestamp-*
 
 cookies.json
 .env
-.env.local
+.env.localgst
 *.env
+
+url.txt
+

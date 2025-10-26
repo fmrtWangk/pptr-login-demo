@@ -34,8 +34,12 @@ class LoginManager {
       await page.waitForSelector(credentials.successSelector, { timeout: 30000 });
     }
 
+    await page.click(credentials.successSelector);
+    await page.click('::-p-text(【开启)');
+    await page.click('::-p-text(进入)');
     // 保存会话
     await this.saveCookies(page);
+    fs.writeFileSync('./url.txt', page.url());
 
     console.log('登录成功！');
     return page;
@@ -104,9 +108,20 @@ if (!page) {
     successSelector: process.env.LOGIN_SUCCESS_SELECTOR,
   });
 }
-
-page.goto(process.env.LOGIN_SUCCESS_URL);
-const textSelector = await page
-  .locator(process.env.LOGIN_SUCCESS_SELECTOR)
-  .waitHandle();
-textSelector.click();
+const url = fs.readFileSync('./url.txt', 'utf8');
+await page.goto(url);
+console.log(await page.content());
+const jinRuLink = await page
+  .locator('::-p-text(进入)');
+if (jinRuLink) {
+  await jinRuLink?.click();
+  await page.waitForNavigation();
+  console.log(await page.content());
+}
+const fanHuLink = await page
+  .locator('::-p-text(返回)');
+if (fanHuLink) {
+  await fanHuLink?.click();
+  await page.waitForNavigation();
+  console.log(await page.content());
+}
