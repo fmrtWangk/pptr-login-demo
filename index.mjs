@@ -36,11 +36,10 @@ class LoginManager {
 
     await page.click(credentials.successSelector);
     await page.click('::-p-text(【开启)');
+    fs.writeFileSync('./url.txt', page.url());
     await page.click('::-p-text(进入)');
     // 保存会话
     await this.saveCookies(page);
-    fs.writeFileSync('./url.txt', page.url());
-
     console.log('登录成功！');
     return page;
   }
@@ -110,28 +109,24 @@ if (!page) {
 }
 const url = fs.readFileSync('./url.txt', 'utf8');
 await page.goto(url);
-await new Promise(resolve => setTimeout(resolve, 200));
-const jinRuLink = await page
-  .$('::-p-text(进入)');
-await jinRuLink?.click();
-await page.waitForNavigation();
-await new Promise(resolve => setTimeout(resolve, 200));
-const fanHuiLink = await page
-  .$('::-p-text(返回)');
-await fanHuiLink?.click();
-await page.waitForNavigation();
-await new Promise(resolve => setTimeout(resolve, 200));
-const sanJieLink = await page
-  .$('::-p-text(三界)');
-await sanJieLink?.click();
-await page.waitForNavigation();
-await new Promise(resolve => setTimeout(resolve, 200));
-const jRxjLink = await page
-  .$('::-p-text(进入仙界)');
-await jRxjLink?.click();
-await page.waitForNavigation();
-await new Promise(resolve => setTimeout(resolve, 200));
-const lGZLink = await page
-  .$('::-p-text(领工资)');
-await lGZLink?.click();
-await page.waitForNavigation();
+
+async function clickText(text, page) {
+  const link = await page
+    .$(`::-p-text(${text})`);
+  console.log(link);
+  if (link) {
+    await link.click();
+    await page.waitForNavigation();
+  }
+}
+// await new Promise(resolve => setTimeout(resolve, 300));
+await clickText('进入', page);
+// await new Promise(resolve => setTimeout(resolve, 300));
+await clickText('返回游戏', page);
+// await new Promise(resolve => setTimeout(resolve, 300));
+await clickText('三界', page);
+// await new Promise(resolve => setTimeout(resolve, 300));
+await clickText('进入仙界', page);
+// await new Promise(resolve => setTimeout(resolve, 300));
+await clickText('领工资', page);
+console.log(await page.content());
