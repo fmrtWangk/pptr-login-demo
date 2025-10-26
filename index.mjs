@@ -119,14 +119,14 @@ async function clickText(text, page) {
     await page.waitForNavigation();
   }
 }
-// await new Promise(resolve => setTimeout(resolve, 300));
+await new Promise(resolve => setTimeout(resolve, 300));
 await clickText('进入', page);
-// await new Promise(resolve => setTimeout(resolve, 300));
+await new Promise(resolve => setTimeout(resolve, 300));
 await clickText('返回游戏', page);
-// await new Promise(resolve => setTimeout(resolve, 300));
+await new Promise(resolve => setTimeout(resolve, 300));
 await clickText('三界', page);
-// await new Promise(resolve => setTimeout(resolve, 300));
+await new Promise(resolve => setTimeout(resolve, 300));
 await clickText('进入仙界', page);
-// await new Promise(resolve => setTimeout(resolve, 300));
+await new Promise(resolve => setTimeout(resolve, 300));
 await clickText('领工资', page);
 console.log(await page.content());
