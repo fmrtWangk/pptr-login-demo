@@ -110,18 +110,43 @@ if (!page) {
 }
 const url = fs.readFileSync('./url.txt', 'utf8');
 await page.goto(url);
-console.log(await page.content());
+await new Promise(resolve => setTimeout(resolve, 200));
 const jinRuLink = await page
-  .locator('::-p-text(进入)');
+  .$('::-p-text(进入)');
 if (jinRuLink) {
   await jinRuLink?.click();
   await page.waitForNavigation();
-  console.log(await page.content());
+  console.log('jinru', await page.content());
+} else {
+  console.log('没有进入');
 }
-const fanHuLink = await page
-  .locator('::-p-text(返回)');
-if (fanHuLink) {
-  await fanHuLink?.click();
+await new Promise(resolve => setTimeout(resolve, 200));
+const fanHuiLink = await page
+  .$('::-p-text(返回)');
+if (fanHuiLink) {
+  await fanHuiLink?.click();
   await page.waitForNavigation();
-  console.log(await page.content());
+  console.log('fanhui', await page.content());
+} else {
+  console.log('没有返回');
 }
+await new Promise(resolve => setTimeout(resolve, 200));
+const sanJieLink = await page
+  .$('::-p-text(三界)');
+await sanJieLink?.click();
+await page.waitForNavigation();
+console.log('sanJie', await page.content());
+
+await new Promise(resolve => setTimeout(resolve, 200));
+const jRxjLink = await page
+  .$('::-p-text(进入仙界)');
+await jRxjLink?.click();
+await page.waitForNavigation();
+console.log('jRxj', await page.content());
+
+await new Promise(resolve => setTimeout(resolve, 200));
+const lGZLink = await page
+  .$('::-p-text(领工资)');
+await lGZLink?.click();
+await page.waitForNavigation();
+console.log('jRxj', await page.content());
